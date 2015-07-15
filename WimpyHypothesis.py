@@ -29,9 +29,9 @@ class WimpyHypothesis(Hypothesis):
     def update(self, vector, attacked, outcome):
         """If we're attacked record it. Know that we would've run away, yo."""
         if attacked:
-            self.__amountAttacked__ = self.__amountAttacked__ + 1
+            self._amountWeWereAttacked = self._amountWeWereAttacked + 1
 
         """We always run away """
-        self.__amountWeRanAway__ = self.__amountWeRanAway__ + 1
+        self._amountWeRanAway = self._amountWeRanAway + 1
 
         return 0
