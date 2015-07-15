@@ -2,6 +2,8 @@
 generate potential run scenarios for the framework"""
 
 from random import random, randint
+from WimpyHypothesis import WimpyHypothesis
+from BraveHypothesis import BraveHypothesis
 
 global COLOR_CATEGORY_1
 global COLOR_CATEGORY_1_AGGRO
@@ -57,14 +59,19 @@ def monster_generator():
             else:
                 yield Monster(0, color, 'B')
 
-def run_tests(hypothesis, trials=100):
-    generator = monster_generator()
+
+def run_tests(hypothesis, trials=100, called='hypothesis'):
+    monster = monster_generator.next()
 
     score = 0.0
     max_score = 0.0
+    fitness = 0.0
+
 
     for x in range(trials):
-        monster = next(generator)
+        print (called + ' fitness:' + str(fitness))
+
+        monster = monster_generator.next()
 
         if monster._aggressive == 0:
             max_score += 1
@@ -75,17 +82,21 @@ def run_tests(hypothesis, trials=100):
 
         score += outcome
 
-    print('Maximum Score: ' + str(max_score))
-    print('Score        : ' + str(score))
-    print('Success Rate : ' + str(score / max_score))
-    print('')
-    print('True passive p-value : ' + str(passive_probability()))
+        fitness = hypothesis.fitness()
+
+    print(called + ' Maximum Score: ' + str(max_score))
+    print(called + ' Score        : ' + str(score))
+    print(called + ' Success Rate : ' + str(score / max_score))
+    print(called + ' ')
+    print(called + ' True passive p-value : ' + str(passive_probability()))
 
 
 
 if __name__ == "__main__":
     monster_generator = monster_generator()
 
+    """
+    print('Exercise Generator ----------------')
     for x in range(10):
         monster = monster_generator.next()
         print(x)
@@ -93,4 +104,12 @@ if __name__ == "__main__":
         print(monster._aggressive)
         print(monster.color)
         print('')
+    """
 
+    print('Run tests on wimpy ----------------')
+    wimpy = WimpyHypothesis()
+    run_tests(wimpy, 10, 'Wimpy')
+
+    print('Run tests on brave ----------------')
+    brave = BraveHypothesis()
+    run_tests(brave, 10, 'Brave')

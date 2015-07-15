@@ -17,7 +17,7 @@ class ChunkyWimpyHypothesis(Hypothesis):
         self._amountWeRanAway = 0
         self.__arrayOfTimesWeWereAttacked = array('i', [0, 0, 0, 0, 0])
         self.__arrayOfTimesWeRanAway = array('i', [1, 1, 1, 1, 1])
-        self.__chunkCardinality = len(__arrayOfTimesWeRanAway)
+        self.__chunkCardinality = len(self.__arrayOfTimesWeRanAway)
         self.__currentChunk = 0
 
     def fitness(self):
