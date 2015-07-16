@@ -110,7 +110,7 @@ def run_2tests(hypothesisA, hypothesisWimpy, trials=100, called='hypothesis'):
             max_score += 1
 
         guess = hypothesisA.get_guess(monster)
-        outcome = monster.action(True)
+        outcome = monster.action(guess)
         hypothesisA.update(monster, guess, outcome)
         hypothesisWimpy.update(monster, guess, outcome)
 
@@ -119,9 +119,9 @@ def run_2tests(hypothesisA, hypothesisWimpy, trials=100, called='hypothesis'):
         fitness = hypothesisA.fitness()
         wimpy_fitness = hypothesisWimpy.fitness()
 
-    print(called + ' Maximum Score: ' + str(max_score))
+    print(called + ' Num Aggressive: ' + str(max_score))
     print(called + ' Score        : ' + str(score))
-    print(called + ' Success Rate : ' + str(score / max_score))
+    print(called + ' Success Rate : ' + str(1 - (score / max_score)))
     print(called + ' ')
     print(called + ' True passive p-value : ' + str(passive_probability()))
 
