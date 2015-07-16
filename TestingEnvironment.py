@@ -10,8 +10,8 @@ global COLOR_CATEGORY_1_AGGRO
 global COLOR_CATEGORY_2
 global COLOR_CATEGORY_2_AGGRO
 
-COLOR_CATEGORY_1 = 0.7
-COLOR_CATEGORY_1_AGGRO = 0.6
+COLOR_CATEGORY_1 = 0.01
+COLOR_CATEGORY_1_AGGRO = 0.99
 COLOR_CATEGORY_2 = 1 - COLOR_CATEGORY_1
 COLOR_CATEGORY_2_AGGRO = 0.05
 
@@ -44,12 +44,7 @@ class Monster(object):
             return -1
         return 1
 
-def monster_generator(kind=False):
-
-    if (kind):
-        while True:
-            yield Monster(1, color, 'A')
-
+def monster_generator():
 
     """Provides a generator for monsters"""
     while True:
