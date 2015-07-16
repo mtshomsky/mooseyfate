@@ -9,6 +9,7 @@ class Hypothesis:
 
     def __init__(self):
         """ Initialize with initialization bias """
+
         pass
 
     @abstractmethod
@@ -47,3 +48,10 @@ class Hypothesis:
         guess on the vector
         """
         pass
+
+
+    def get_refractory_period(self):
+        pass
+
+    def set_refractory_period(self, trainingPeriod):
+         pass

@@ -12,8 +12,8 @@ global COLOR_CATEGORY_2_AGGRO
 
 COLOR_CATEGORY_1 = 0.01
 COLOR_CATEGORY_1_AGGRO = 0.99
-COLOR_CATEGORY_2 = 1 - COLOR_CATEGORY_1
-COLOR_CATEGORY_2_AGGRO = 0.05
+COLOR_CATEGORY_2 = 0.01
+COLOR_CATEGORY_2_AGGRO = 0.99
 
 
 def aggro_probability():
@@ -46,7 +46,9 @@ class Monster(object):
 
 def monster_generator():
 
-    """Provides a generator for monsters"""
+    """Provides a generator for monsters
+       by pretending there is an infinite list of monsters"""
+
     while True:
         color = random()
         if color <= COLOR_CATEGORY_1:
@@ -66,7 +68,7 @@ def run_tests(hypothesis, trials=100, called='hypothesis'):
     monster = monster_generator.next()
 
     score = 0.0
-    max_score = 0.0
+    max_score = 0.0001
     fitness = 0.0
 
 
@@ -92,20 +94,29 @@ def run_tests(hypothesis, trials=100, called='hypothesis'):
     print(called + ' ')
     print(called + ' True passive p-value : ' + str(passive_probability()))
 
+
+"""
+    run_2tests
+
+    As a prelude to a working Decisioner, we go through and compare a wimpy and brave hypothesis
+    and f
+"""
 def run_2tests(hypothesisA, hypothesisWimpy, trials=100, called='hypothesis'):
     monster = monster_generator.next()
 
     score = 0.0
-    max_score = 0.0
+    max_score = 0.0001
     fitness = 0.0
     wimpy_fitness = 0.0
 
-
     for x in range(trials):
-        print (called + ' brave fitness:' + str(fitness) + ' wimpy fitness:' +str(wimpy_fitness) )
+        ignoredA = '\t\t[ignored for refractory period]' if (x < hypothesisA.get_refractory_period()) else '';
+        ignoredW = '\t\t[ignored for refractory period]' if (x < hypothesisWimpy.get_refractory_period())  else '';
+        print (called + '[step-'+ str(x) +'] brave fitness:' + str(fitness) + ignoredA + ' wimpy fitness:' + str(wimpy_fitness) + ' '+ ignoredW )
 
         monster = monster_generator.next()
 
+        # if the monster is not aggressive, increment max score
         if monster._aggressive == 0:
             max_score += 1
 
@@ -114,15 +125,18 @@ def run_2tests(hypothesisA, hypothesisWimpy, trials=100, called='hypothesis'):
         hypothesisA.update(monster, guess, outcome)
         hypothesisWimpy.update(monster, guess, outcome)
 
+        # add the outcome: 1 if hit, 0 if nothing, -1 if ran away
         score += outcome
 
         fitness = hypothesisA.fitness()
         wimpy_fitness = hypothesisWimpy.fitness()
 
-    print(called + ' Num Aggressive: ' + str(max_score))
-    print(called + ' Score        : ' + str(score))
-    print(called + ' Success Rate : ' + str(1 - (score / max_score)))
-    print(called + ' ')
+    print(called + ' =======================================================')
+    print(called + ' Num Aggressive: \t: ' + str(max_score))
+    print(called + ' Score        \t\t: ' + str(score))
+    print(called + ' Potential Max Score \t: ' + str(max_score) + ' (num of non-agro monsters)')
+    print(called + ' Success Rate\t\t: ' + str(1 - (score / max_score)))
+    print(called + ' =======================================================')
     print(called + ' True passive p-value : ' + str(passive_probability()))
 
 
@@ -149,4 +163,4 @@ if __name__ == "__main__":
     run_tests(brave, 10, 'Brave')
 
     print('Run 2tests only on brave versus wimpy ----------------')
-    run_2tests(brave, wimpy, 10, 'Combined 2tests:')
+    run_2tests(brave, wimpy, 110, 'Combined 2tests:')

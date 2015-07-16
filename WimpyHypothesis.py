@@ -16,8 +16,12 @@ class WimpyHypothesis(Hypothesis):
         self._n = 0
         self._amountWeWereAttacked = 0
         self._amountWeRanAway = 0
+        self._trainingPeriod = 2
+
 
     def fitness(self):
+        if self._n < self._trainingPeriod:
+            return 1.0
         wimpyFitness = self._amountWeWereAttacked / self._amountWeRanAway
         return wimpyFitness
 
@@ -35,3 +39,9 @@ class WimpyHypothesis(Hypothesis):
         self._amountWeRanAway = self._amountWeRanAway + 1
 
         return 0
+
+    def get_refractory_period(self):
+        return self._trainingPeriod
+
+    def set_refractory_period(self, trainingPeriod):
+         self._trainingPeriod = trainingPeriod
