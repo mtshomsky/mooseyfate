@@ -44,7 +44,13 @@ class Monster(object):
             return -1
         return 1
 
-def monster_generator():
+def monster_generator(kind=False):
+
+    if (kind):
+        while True:
+            yield Monster(1, color, 'A')
+
+
     """Provides a generator for monsters"""
     while True:
         color = random()
@@ -58,6 +64,7 @@ def monster_generator():
                 yield Monster(1, color, 'B')
             else:
                 yield Monster(0, color, 'B')
+
 
 
 def run_tests(hypothesis, trials=100, called='hypothesis'):
@@ -90,6 +97,38 @@ def run_tests(hypothesis, trials=100, called='hypothesis'):
     print(called + ' ')
     print(called + ' True passive p-value : ' + str(passive_probability()))
 
+def run_2tests(hypothesisA, hypothesisWimpy, trials=100, called='hypothesis'):
+    monster = monster_generator.next()
+
+    score = 0.0
+    max_score = 0.0
+    fitness = 0.0
+    wimpy_fitness = 0.0
+
+
+    for x in range(trials):
+        print (called + ' brave fitness:' + str(fitness) + ' wimpy fitness:' +str(wimpy_fitness) )
+
+        monster = monster_generator.next()
+
+        if monster._aggressive == 0:
+            max_score += 1
+
+        guess = hypothesisA.get_guess(monster)
+        outcome = monster.action(True)
+        hypothesisA.update(monster, guess, outcome)
+        hypothesisWimpy.update(monster, guess, outcome)
+
+        score += outcome
+
+        fitness = hypothesisA.fitness()
+        wimpy_fitness = hypothesisWimpy.fitness()
+
+    print(called + ' Maximum Score: ' + str(max_score))
+    print(called + ' Score        : ' + str(score))
+    print(called + ' Success Rate : ' + str(score / max_score))
+    print(called + ' ')
+    print(called + ' True passive p-value : ' + str(passive_probability()))
 
 
 if __name__ == "__main__":
@@ -106,10 +145,13 @@ if __name__ == "__main__":
         print('')
     """
 
-    print('Run tests on wimpy ----------------')
+    print('Run tests only on wimpy ----------------')
     wimpy = WimpyHypothesis()
     run_tests(wimpy, 10, 'Wimpy')
 
-    print('Run tests on brave ----------------')
+    print('Run tests only on brave ----------------')
     brave = BraveHypothesis()
     run_tests(brave, 10, 'Brave')
+
+    print('Run 2tests only on brave versus wimpy ----------------')
+    run_2tests(brave, wimpy, 10, 'Combined 2tests:')
