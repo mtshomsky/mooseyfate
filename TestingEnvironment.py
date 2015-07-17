@@ -99,7 +99,10 @@ def run_tests(hypothesis, trials=100, called='hypothesis'):
     run_2tests
 
     As a prelude to a working Decisioner, we go through and compare a wimpy and brave hypothesis
-    and f
+
+    TODO: Score was potentially wrong
+    TODO: div by zero is clearly a wimpy problem / a problem with wimpy, patched with 0.001 do revisit
+
 """
 def run_2tests(hypothesisA, hypothesisWimpy, trials=100, called='hypothesis'):
     monster = monster_generator.next()
