@@ -1,61 +1,90 @@
-To run the specific modules for your project execute them using pythons module command above the root of the project:
-```
-[~/workspace/lab/ml]$ tree -I '.*egg-info|.*pyc|__init.*'
 .
-└── mooseyfate
-    ├── README.md
-    ├── setup.py
-    ├── src
-    │   ├── Decisioner.py
-    │   ├── hypothesis
-    │   │   ├── BraveHypothesis.py
-    │   │   ├── ChunkyWimpyHypothesis.py
-    │   │   ├── Hypothesis.py
-    │   │   ├── KMeansHypothesis.py
-    │   │   ├── SimpleProbabilityHypothesis.py
-    │   │   └── WimpyHypothesis.py
-    │   └── lib
-    │       ├── HelperFunctions.py
-    │       └── TestingEnvironment.py
-    └── test
-        ├── DecisionerTest.py
-        ├── hypothesis
-        │   └── MockHypothesis.py
-        └── lib
-            └── HelperFunctionsTest.py
+├── Decisioner.py
+├── README.md
+├── TestingEnvironment.py
+├── mooseyfate.egg-info
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   ├── dependency_links.txt
+│   └── top_level.txt
+├── runDecisioner.sh
+├── setup.py
+├── src
+│   ├── Decisioner.py
+│   ├── Decisioner.pyc
+│   ├── Decisioner.py~
+│   ├── __init__.py
+│   ├── __init__.pyc
+│   ├── hypothesis
+│   │   ├── BraveHypothesis.py
+│   │   ├── BraveHypothesis.pyc
+│   │   ├── ChunkyKNNHypothesis.py
+│   │   ├── ChunkyKNNHypothesis.pyc
+│   │   ├── ChunkyWimpyHypothesis.py
+│   │   ├── DrPerceptron.py
+│   │   ├── DrPerceptron.pyc
+│   │   ├── Hypothesis.py
+│   │   ├── Hypothesis.pyc
+│   │   ├── HypothesisCollection.py
+│   │   ├── KMeansHypothesis.py
+│   │   ├── KMeansHypothesis.pyc
+│   │   ├── KNearestNeighbors.py
+│   │   ├── KNearestNeighbors.pyc
+│   │   ├── NoLearnPerceptron.py
+│   │   ├── NoLearnPerceptron.pyc
+│   │   ├── OptimusPerceptron.py
+│   │   ├── OptimusPerceptron.pyc
+│   │   ├── OptimusPerceptron.py~
+│   │   ├── RandoHypothesis.py
+│   │   ├── RandoHypothesis.pyc
+│   │   ├── SimpleProbabilityHypothesis.py
+│   │   ├── SimpleProbabilityHypothesis.pyc
+│   │   ├── WimpyHypothesis.py
+│   │   ├── WimpyHypothesis.pyc
+│   │   ├── __init__.py
+│   │   └── __init__.pyc
+│   └── lib
+│       ├── HelperFunctions.py
+│       ├── HelperFunctions.pyc
+│       ├── TestingEnvironment.py
+│       ├── TestingEnvironment.pyc
+│       ├── __init__.py
+│       └── __init__.pyc
+└── test
+    ├── DecisionerIntegrationTest.py
+    ├── DecisionerIntegrationTest.pyc
+    ├── DecisionerIntegrationTest.py~
+    ├── DecisionerTest.py
+    ├── DecisionerTest.pyc
+    ├── __init__.py
+    ├── __init__.pyc
+    ├── hypothesis
+    │   ├── BraveHypothesisTest.py
+    │   ├── BraveHypothesisTest.pyc
+    │   ├── ChunkyKNNHypothesisTest.py
+    │   ├── ChunkyKNNHypothesisTest.pyc
+    │   ├── DrPerceptronHypothesisTest.py
+    │   ├── DrPerceptronHypothesisTest.pyc
+    │   ├── KMeansHypothesisTest.py
+    │   ├── KMeansHypothesisTest.pyc
+    │   ├── KNearestNeighborsTest.py
+    │   ├── KNearestNeighborsTest.pyc
+    │   ├── MockHypothesis.py
+    │   ├── MockHypothesis.pyc
+    │   ├── OptimusPerceptronHypothesisTest.py
+    │   ├── OptimusPerceptronHypothesisTest.pyc
+    │   ├── RandoHypothesisTest.py
+    │   ├── RandoHypothesisTest.pyc
+    │   ├── SimpleProbabilityHypothesisTest.py
+    │   ├── SimpleProbabilityHypothesisTest.pyc
+    │   ├── WimpyHypothesisTest.py
+    │   ├── WimpyHypothesisTest.pyc
+    │   ├── __init__.py
+    │   └── __init__.pyc
+    └── lib
+        ├── HelperFunctionsTest.py
+        ├── HelperFunctionsTest.pyc
+        ├── __init__.py
+        └── __init__.pyc
 
-7 directories, 14 files
-
-[~/workspace/lab/ml]$ python -m mooseyfate.src.hypothesis.KMeansHypothesis
-```
-
-To run unit tests simply use pythons setup method:
-
-```
-[~/workspace/lab/ml/mooseyfate]$ python setup.py test
-running test
-running egg_info
-writing pbr to mooseyfate.egg-info/pbr.json
-writing mooseyfate.egg-info/PKG-INFO
-writing top-level names to mooseyfate.egg-info/top_level.txt
-writing dependency_links to mooseyfate.egg-info/dependency_links.txt
-reading manifest file 'mooseyfate.egg-info/SOURCES.txt'
-writing manifest file 'mooseyfate.egg-info/SOURCES.txt'
-running build_ext
-test_learn (test.DecisionerTest.DecisionerTest)
-Tests the 'learn' method of the Decisioner ... ok
-test_should_attack (test.DecisionerTest.DecisionerTest)
-Tests the 'should_attack' method of the Decisioner ... ok
-test_euclidean_distance_1dimension (test.lib.HelperFunctionsTest.HelperFunctionsTest)
-Tests the euclidean distance in one dimension ... ok
-test_euclidean_distance_2dimension (test.lib.HelperFunctionsTest.HelperFunctionsTest)
-Tests the euclidean distance in 2 dimensions ... ok
-test_euclidean_distance_Ndimension (test.lib.HelperFunctionsTest.HelperFunctionsTest)
-Tests the euclidean distance in 2+ dimensions ... ok
-
-----------------------------------------------------------------------
-Ran 5 tests in 0.001s
-
-OK
-```
-
+7 directories, 80 files
